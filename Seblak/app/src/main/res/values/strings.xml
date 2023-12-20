@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Seblak</string>
+    <string name="order_seblak">Order Seblak</string>
+    <string name="one_seblak">One Seblak</string>
+    <string name="three_seblak">Three Seblak</string>
+    <string name="five_seblak">Five Seblak</string>
+    <string name="seven_seblak">Seven Seblak</string>
+    <string name="ten_seblak">Ten Seblak</string>
+    <string name="choose_variant">Choose Variant</string>
+    <string name="original">Seblak Original</string>
+    <string name="ceker">Seblak Ceker</string>
+    <string name="cuangki_lidah">Seblak Cuangki Lidah</string>
+    <string name="goang">Seblak Goang</string>
+    <string name="chikuwa">Seblak Chikuwa</string>
+    <string name="odeng">Seblak Odeng</string>
+    <string name="teokbokki">Seblak Teokbokki</string>
+    <string name="dengbokki">Seblak Dengbokki</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="choose_pickup_date">Choose Pickup Date</string>
+    <string name="order_summary">Order Summary</string>
+    <string name="send">Send Order to Another App</string>
+    <string name="quantity">Quantity</string>
+    <string name="variant">Variant</string>
+    <string name="pickup_date">Pickup date</string>
+    <string name="subtotal_price">Subtotal : %s</string>
+    <string name="total_price">Total %s</string>
+    <string name="new_seblak_order">New Seblak Order</string>
+    <string name="order_details">Quantity: %1$s \nVariant: %2$s \nPickup date: %3$s \nTotal: %4$s \n\nThank you!</string>
+    <string name="back_button">Back</string>
+    <plurals name="seblak">
+        <item quantity="one">%d seblak</item>
+        <item quantity="other">%d seblak</item>
+    </plurals>
+</resources>

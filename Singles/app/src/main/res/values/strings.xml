@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Singles</string>
+    <string name="river">River</string>
+    <string name="yuuhi">Yuuhi wo Miteiru ka?</string>
+    <string name="kfc">Fortune Cookie yang Mencinta</string>
+    <string name="manatsu">Manatsu no Sounds Good!</string>
+    <string name="flying">Flying Get</string>
+    <string name="gingham">Gingham Check</string>
+    <string name="kokoro">Kokoro no Placard</string>
+    <string name="kazewa">Kaze wa Fuiteiru</string>
+    <string name="pareo">Pareo wa Emerald</string>
+    <string name="kibouteki">Kibouteki Refrain</string>
+    <string name="halloween">Halloween Night</string>
+    <string name="beginner">Beginner</string>
+    <string name="maeshika">Mae Shika Mukanee</string>
+    <string name="love">LOVE TRIP</string>
+    <string name="saikou">Saikou ka yo!</string>
+    <string name="solong">So Long!</string>
+    <string name="suzukake">Suzukake Nanchara</string>
+    <string name="kimiwa">Kimi wa Melody</string>
+    <string name="everyday">Everyday, Kachuusha</string>
+    <string name="uza">UZA</string>
+    <string name="high">High Tension</string>
+    <string name="rapsodi">Rapsodi</string>
+    <string name="darashinai">Darashinai Aishikata</string>
+    <string name="flyinghigh">FLYING high</string>
+    <string name="sayonara">Sayonara Crawl</string>
+</resources>

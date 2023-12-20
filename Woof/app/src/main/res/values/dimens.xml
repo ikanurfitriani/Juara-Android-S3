@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // Mendefinisikan ukuran padding dengan nama "padding_small" dan memiliki nilai 8dp
+    <dimen name="padding_small">8dp</dimen>
+    // Mendefinisikan ukuran padding dengan nama "padding_medium" dan memiliki nilai 16dp
+    <dimen name="padding_medium">16dp</dimen>
+    // Mendefinisikan ukuran gambar dengan nama "image_size" dan memiliki nilai 64dp
+    <dimen name="image_size">64dp</dimen>
+</resources>
