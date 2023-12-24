@@ -1,5 +1,7 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.racetracker.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,12 +38,14 @@ import com.ikanurfitriani.racetracker.R
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
+// Mendefinisikan fungsi komposabel bernama RaceTrackerApp
 @Composable
+// Composable utama yang mengatur logika perlombaan dan menampilkan RaceTrackerScreen
 fun RaceTrackerApp() {
     /**
-     * Note: To survive the configuration changes such as screen rotation, [rememberSaveable] should
-     * be used with custom Saver object. But to keep the example simple, and keep focus on
-     * Coroutines that implementation detail is stripped out.
+     * Catatan: Untuk bertahan dari perubahan konfigurasi seperti rotasi layar, [rememberSaveable] seharusnya
+     * digunakan dengan objek Saver kustom. Tetapi untuk menjaga contoh ini sederhana, dan fokus pada
+     * Coroutines, detail implementasi tersebut dihapus.
      */
     val playerOne = remember {
         RaceParticipant(name = "Player 1", progressIncrement = 1)
@@ -68,7 +72,9 @@ fun RaceTrackerApp() {
     )
 }
 
+// Mendefinisikan fungsi komposabel bernama RaceTrackerScreen
 @Composable
+// Composable yang menampilkan status peserta balapan, indikator kemajuan, dan kontrol perlombaan
 private fun RaceTrackerScreen(
     playerOne: RaceParticipant,
     playerTwo: RaceParticipant,
@@ -76,27 +82,32 @@ private fun RaceTrackerScreen(
     onRunStateChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Membuat kolom utama yang mengisi layar penuh dan memberikan padding
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(dimensionResource(R.dimen.padding_medium)),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Menampilkan teks untuk label utama
         Text(
             text = stringResource(R.string.run_a_race),
             style = MaterialTheme.typography.headlineLarge,
         )
+        // Membuat kolom untuk mengatur tata letak elemen di tengah layar
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            // Menampilkan ikon berjalan dengan memberikan padding di bagian bawah
             Icon(
                 painter = painterResource(R.drawable.ic_walk),
                 contentDescription = null,
 
                 modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium)),
             )
+            // Menampilkan indikator status untuk Player One
             StatusIndicator(
                 participantName = playerOne.name,
                 currentProgress = playerOne.currentProgress,
@@ -106,7 +117,9 @@ private fun RaceTrackerScreen(
                 ),
                 progressFactor = playerOne.progressFactor
             )
+            // Memberikan ruang kosong vertikal dengan ukuran tertentu
             Spacer(modifier = Modifier.size(dimensionResource(R.dimen.padding_large)))
+            // Menampilkan indikator status untuk Player Two
             StatusIndicator(
                 participantName = playerTwo.name,
                 currentProgress = playerTwo.currentProgress,
@@ -116,7 +129,9 @@ private fun RaceTrackerScreen(
                 ),
                 progressFactor = playerTwo.progressFactor
             )
+            // Memberikan ruang kosong vertikal dengan ukuran tertentu
             Spacer(modifier = Modifier.size(dimensionResource(R.dimen.padding_large)))
+            // Menampilkan kontrol untuk menjalankan, menghentikan, dan mereset perlombaan
             RaceControls(
                 isRunning = isRunning,
                 onRunStateChange = onRunStateChange,
@@ -130,7 +145,9 @@ private fun RaceTrackerScreen(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama StatusIndicator
 @Composable
+// Composable yang menampilkan indikator kemajuan untuk setiap peserta balapan
 private fun StatusIndicator(
     participantName: String,
     currentProgress: Int,
@@ -138,15 +155,19 @@ private fun StatusIndicator(
     progressFactor: Float,
     modifier: Modifier = Modifier
 ) {
+    // Membuat baris untuk menampilkan elemen secara horizontal
     Row {
+        // Menampilkan teks nama peserta dengan memberikan padding di bagian akhir
         Text(participantName, Modifier.padding(end = dimensionResource(R.dimen.padding_small)))
 
+        // Membuat kolom untuk mengatur tata letak elemen secara vertikal
         Column(
             modifier = modifier
                 .fillMaxWidth()
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
+            // Menampilkan indikator kemajuan linear dengan proporsi kemajuan sesuai dengan faktor kemajuan
             LinearProgressIndicator(
                 progress = progressFactor,
                 modifier = Modifier
@@ -154,15 +175,18 @@ private fun StatusIndicator(
                     .height(dimensionResource(R.dimen.progress_indicator_height))
                     .clip(RoundedCornerShape(dimensionResource(R.dimen.progress_indicator_corner_radius)))
             )
+            // Menampilkan dua teks dengan properti tertentu yang menunjukkan kemajuan
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
+                // Menampilkan teks persentase kemajuan
                 Text(
                     text = stringResource(R.string.progress_percentage, currentProgress),
                     textAlign = TextAlign.Start,
                     modifier = Modifier.weight(1f)
                 )
+                // Menampilkan teks nilai maksimum kemajuan
                 Text(
                     text = maxProgress,
                     textAlign = TextAlign.End,
@@ -173,27 +197,34 @@ private fun StatusIndicator(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama RaceControls
 @Composable
+// Composable yang menampilkan kontrol untuk memulai, menghentikan, dan mereset perlombaan
 private fun RaceControls(
     onRunStateChange: (Boolean) -> Unit,
     onReset: () -> Unit,
     modifier: Modifier = Modifier,
     isRunning: Boolean = true,
 ) {
+    // Baris digunakan untuk mengatur tata letak elemen secara horizontal dengan jarak yang merata
     Row(
         modifier = modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
+        // Tombol untuk mengubah status berjalan atau tidaknya perlombaan
         Button(onClick = { onRunStateChange(!isRunning) }) {
+            // Teks tombol berubah tergantung pada status berjalan atau tidaknya perlombaan
             Text(if (isRunning) stringResource(R.string.pause) else stringResource(R.string.start))
         }
 
+        // Tombol untuk mereset perlombaan
         Button(onClick = onReset) {
             Text(stringResource(R.string.reset))
         }
     }
 }
 
+// Menampilkan pratinjau dari aplikasi RaceTracker dengan menggunakan tema MaterialTheme dan fungsi RaceTrackerApp
 @Preview
 @Composable
 fun RaceTrackerAppPreview() {

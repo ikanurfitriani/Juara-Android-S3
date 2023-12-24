@@ -1,5 +1,7 @@
+// Nama package dari screens yang dibuat dalam aplikasi
 package com.ikanurfitriani.amphibians.ui.screens
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue

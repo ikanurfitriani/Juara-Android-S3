@@ -1,10 +1,13 @@
+// Nama package dari model yang dibuat dalam aplikasi
 package com.ikanurfitriani.sports.model
 
+// Import library yang akan digunakan
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
 /**
- * Data model for Sport
+ * data class Sport
+ * Kelas Sport merepresentasikan data tentang suatu olahraga.
  */
 data class Sport(
     val id: Int,

@@ -1,10 +1,12 @@
+// Nama package dari model yang dibuat dalam aplikasi
 package com.ikanurfitriani.amphibians.model
 
+// Import library, kelas atau file yang dibutuhkan
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * Data class that defines an amphibian which includes a name, type, description, and image URL.
+ * Data class ini mendefinisikan sebuah amphibians yang mencakup name, type, description, and image URL.
  */
 @Serializable
 data class Amphibian(

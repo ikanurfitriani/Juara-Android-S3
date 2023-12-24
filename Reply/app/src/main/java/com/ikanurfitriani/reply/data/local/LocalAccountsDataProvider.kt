@@ -1,24 +1,33 @@
+// Untuk mendefinisikan package dari file ini
 package com.ikanurfitriani.reply.data.local
 
+// Import library, kelas atau file yang dibutuhkan
 import com.ikanurfitriani.reply.R
 import com.ikanurfitriani.reply.data.Account
 
 /**
- * An static data store of [Account]s. This includes both [Account]s owned by the current user and
- * all [Account]s of the current user's contacts.
+ * Penyimpanan data statis untuk [Account]s. Ini mencakup kedua [Account] yang dimiliki oleh pengguna saat ini
+ * dan semua [Account] dari kontak pengguna saat ini.
  */
 object LocalAccountsDataProvider {
+    // Akun default yang digunakan jika diperlukan
     val defaultAccount = Account(-1, -1, -1, -1, R.drawable.avatar_1)
 
+    // Akun pengguna saat ini
     val userAccount =
         Account(
             id = 1,
+            // Menampilkan firstName dari sumber daya string
             firstName = R.string.account_1_first_name,
+            // Menampilkan lastName dari sumber daya string
             lastName = R.string.account_1_last_name,
+            // Menampilkan email dari sumber daya string
             email = R.string.account_1_email,
+            // Menampilkan avatar dari sumber daya drawable
             avatar = R.drawable.avatar_10
         )
 
+    // Daftar akun untuk kontak pengguna
     private val allUserContactAccounts = listOf(
         Account(
             id = 4L,
@@ -93,7 +102,7 @@ object LocalAccountsDataProvider {
     )
 
     /**
-     * Get the contact of the current user with the given [accountId].
+     * Mendapatkan kontak pengguna dengan [accountId] tertentu.
      */
     fun getContactAccountById(accountId: Long): Account {
         return allUserContactAccounts.firstOrNull { it.id == accountId }

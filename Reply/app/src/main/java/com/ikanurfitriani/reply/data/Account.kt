@@ -1,20 +1,22 @@
+// Nama package dari data yang dibuat dalam aplikasi
 package com.ikanurfitriani.reply.data
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
 /**
- * A class which represents an account
+ * Kelas yang merepresentasikan sebuah akun.
  */
 data class Account(
-    /** Unique ID of a user **/
+    /** ID unik pengguna **/
     val id: Long,
-    /** User's first name **/
+    /** Nama depan pengguna **/
     @StringRes val firstName: Int,
-    /** User's last name **/
+    /** Nama belakang pengguna **/
     @StringRes val lastName: Int,
-    /** User's email address **/
+    /** Alamat email pengguna **/
     @StringRes val email: Int,
-    /** User's avatar image resource id **/
+    /** ID sumber daya avatar gambar pengguna **/
     @DrawableRes val avatar: Int
 )

@@ -1,16 +1,25 @@
+// Nama package dari data yang dibuat dalam aplikasi
 package com.ikanurfitriani.sports.data
 
+// Import library, kelas atau file yang dibutuhkan
 import com.ikanurfitriani.sports.R
 import com.ikanurfitriani.sports.model.Sport
 
 /**
- * Sports data
+ * object LocalSportsDataProvider
+ * Objek ini menyediakan data olahraga lokal untuk aplikasi.
  */
 object LocalSportsDataProvider{
+    // Properti defaultSport menyimpan olahraga pertama dari data olahraga yang diperoleh
     val defaultSport = getSportsData()[0]
 
+    /**
+     * Fungsi getSportsData()
+     * Fungsi ini mengembalikan daftar olahraga yang telah ditentukan bersama dengan detailnya.
+     */
     fun getSportsData(): List<Sport> {
         return listOf(
+            // Mengambil teks dan gambar dari sumber daya string
             Sport(
                 id = 1,
                 titleResourceId = R.string.baseball,

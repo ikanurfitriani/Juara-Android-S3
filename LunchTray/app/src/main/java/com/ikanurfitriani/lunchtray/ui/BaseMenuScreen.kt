@@ -1,5 +1,7 @@
+// Untuk mendefinisikan package dari file ini
 package com.ikanurfitriani.lunchtray.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import com.ikanurfitriani.lunchtray.R
 import com.ikanurfitriani.lunchtray.model.MenuItem
 
+// Mendefinisikan fungsi komposabel bernama BaseMenuScreen
 @Composable
 fun BaseMenuScreen(
     options: List<MenuItem>,
@@ -33,9 +36,11 @@ fun BaseMenuScreen(
     onSelectionChanged: (MenuItem) -> Unit,
 ) {
 
+    // Menyimpan nama item yang dipilih menggunakan rememberSaveable
     var selectedItemName by rememberSaveable { mutableStateOf("") }
 
     Column(modifier = modifier) {
+        // Membuat baris menu untuk setiap opsi
         options.forEach { item ->
             val onClick = {
                 selectedItemName = item.name
@@ -56,11 +61,12 @@ fun BaseMenuScreen(
             )
         }
 
+        // Menampilkan grup tombol untuk membatalkan atau melanjutkan
         MenuScreenButtonGroup(
             selectedItemName = selectedItemName,
             onCancelButtonClicked = onCancelButtonClicked,
             onNextButtonClicked = {
-                // Assert not null bc next button is not enabled unless selectedItem is not null.
+                // Memastikan bahwa selectedItem tidak null sebelum melanjutkan
                 onNextButtonClicked()
             },
             modifier = Modifier.fillMaxWidth().padding(dimensionResource(R.dimen.padding_medium))
@@ -68,6 +74,7 @@ fun BaseMenuScreen(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama MenuItemRow
 @Composable
 fun MenuItemRow(
     item: MenuItem,
@@ -79,6 +86,7 @@ fun MenuItemRow(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Menampilkan RadioButton untuk setiap item
         RadioButton(
             selected = selectedItemName == item.name,
             onClick = onClick
@@ -86,6 +94,7 @@ fun MenuItemRow(
         Column(
             verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_small))
         ) {
+            // Menampilkan nama, deskripsi, dan harga item
             Text(
                 text = item.name,
                 style = MaterialTheme.typography.headlineSmall
@@ -106,6 +115,7 @@ fun MenuItemRow(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama MenuScreenButtonGroup
 @Composable
 fun MenuScreenButtonGroup(
     selectedItemName: String,
@@ -117,9 +127,11 @@ fun MenuScreenButtonGroup(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium))
     ){
+        // Tombol untuk membatalkan
         OutlinedButton(modifier = Modifier.weight(1f), onClick = onCancelButtonClicked) {
             Text(stringResource(R.string.cancel).uppercase())
         }
+        // Tombol untuk melanjutkan, hanya diaktifkan jika ada item yang dipilih
         Button(
             modifier = Modifier.weight(1f),
             // the button is enabled when the user makes a selection

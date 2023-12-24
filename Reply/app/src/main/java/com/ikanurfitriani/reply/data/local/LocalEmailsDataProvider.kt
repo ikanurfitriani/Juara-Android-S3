@@ -1,22 +1,31 @@
+// Untuk mendefinisikan package dari file ini
 package com.ikanurfitriani.reply.data.local
 
+// Import library, kelas atau file yang dibutuhkan
 import com.ikanurfitriani.reply.R
 import com.ikanurfitriani.reply.data.Email
 import com.ikanurfitriani.reply.data.MailboxType
 
 /**
- * A static data store of [Email]s.
+ * Penyimpanan data statis untuk [Email]s.
  */
 
 object LocalEmailsDataProvider {
 
+    // Daftar semua [Email] yang disimpan statis
     val allEmails = listOf(
         Email(
+            // Menyimpan suatu nilai dengan tipe data Long
             id = 0L,
+            // Menyimpan informasi pengirim email
             sender = LocalAccountsDataProvider.getContactAccountById(9L),
+            // Menyimpan daftar penerima email
             recipients = listOf(LocalAccountsDataProvider.defaultAccount),
+            // Menyimpan string yang mewakili subjek email
             subject = R.string.email_0_subject,
+            // Menyimpan string yang mewakili isi atau badan email
             body = R.string.email_0_body,
+            // Menyimpan waktu pembuatan emai
             createdAt = R.string.email_0_time,
         ),
         Email(
@@ -113,12 +122,14 @@ object LocalEmailsDataProvider {
     )
 
     /**
-     * Get an [Email] with the given [id].
+     * Dapatkan [Email] dengan [id] tertentu.
      */
     fun get(id: Long): Email? {
+        // Temukan Email dengan ID yang ditentukan, atau kembalikan null jika tidak ditemukan
         return allEmails.firstOrNull { it.id == id }
     }
 
+    // Email default yang digunakan jika diperlukan
     val defaultEmail = Email(
         id = -1,
         sender = LocalAccountsDataProvider.defaultAccount,

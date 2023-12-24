@@ -1,10 +1,12 @@
+// Nama package dari model yang dibuat dalam aplikasi
 package com.ikanurfitriani.marsphotos.model
 
+// Import library yang akan digunakan
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 /**
- * This data class defines a Mars photo which includes an ID, and the image URL.
+ * Data class ini mendefinisikan sebuah foto Mars yang mencakup ID dan URL gambar.
  */
 @Serializable
 data class MarsPhoto(

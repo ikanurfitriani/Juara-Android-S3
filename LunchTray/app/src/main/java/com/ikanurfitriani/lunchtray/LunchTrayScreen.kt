@@ -1,5 +1,7 @@
+// Nama package dari aplikasi yang dibuat
 package com.ikanurfitriani.lunchtray
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -32,7 +34,9 @@ import com.ikanurfitriani.lunchtray.ui.OrderViewModel
 import com.ikanurfitriani.lunchtray.ui.SideDishMenuScreen
 import com.ikanurfitriani.lunchtray.ui.StartOrderScreen
 
+// Enum untuk menentukan layar apa yang sedang ditampilkan
 enum class LunchTrayScreen(@StringRes val title: Int) {
+    // Menampilkan judul dari sumber daya string
     Start(title = R.string.app_name),
     Entree(title = R.string.choose_entree),
     SideDish(title = R.string.choose_side_dish),
@@ -43,8 +47,10 @@ enum class LunchTrayScreen(@StringRes val title: Int) {
 /**
  * Composable that displays the topBar and displays back button if back navigation is possible.
  */
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+// Composable untuk menampilkan AppBar dengan judul layar dan tombol kembali jika navigasi kembali dimungkinkan
 fun LunchTrayAppBar(
     @StringRes currentScreenTitle: Int,
     canNavigateBack: Boolean,
@@ -67,8 +73,10 @@ fun LunchTrayAppBar(
     )
 }
 
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
+// Composable utama yang mengatur tata letak dan navigasi antar layar menggunakan NavHost
 fun LunchTrayApp() {
     //Create NavController
     val navController = rememberNavController()
@@ -81,7 +89,9 @@ fun LunchTrayApp() {
     // Create ViewModel
     val viewModel: OrderViewModel = viewModel()
 
+    // Komponen Material yang menyediakan struktur dasar aplikasi
     Scaffold(
+        // Menampilkan AppBar khusus
         topBar = {
             LunchTrayAppBar(
                 currentScreenTitle = currentScreen.title,
@@ -90,13 +100,16 @@ fun LunchTrayApp() {
             )
         }
     ) { innerPadding ->
+        // Kumpulkan status UI dari ViewModel sebagai Status
         val uiState by viewModel.uiState.collectAsState()
 
+        // Untuk menentukan navigasi antar layar
         NavHost(
             navController = navController,
             startDestination = LunchTrayScreen.Start.name,
         ) {
             composable(route = LunchTrayScreen.Start.name) {
+                // Start screen composable
                 StartOrderScreen(
                     onStartOrderButtonClicked = {
                         navController.navigate(LunchTrayScreen.Entree.name)
@@ -108,6 +121,7 @@ fun LunchTrayApp() {
             }
 
             composable(route = LunchTrayScreen.Entree.name) {
+                // Entree menu screen composable
                 EntreeMenuScreen(
                     options = DataSource.entreeMenuItems,
                     onCancelButtonClicked = {
@@ -127,6 +141,7 @@ fun LunchTrayApp() {
             }
 
             composable(route = LunchTrayScreen.SideDish.name) {
+                // SideDish menu screen composable
                 SideDishMenuScreen(
                     options = DataSource.sideDishMenuItems,
                     onCancelButtonClicked = {
@@ -146,6 +161,7 @@ fun LunchTrayApp() {
             }
 
             composable(route = LunchTrayScreen.Accompaniment.name) {
+                // Accompaniment menu screen composable
                 AccompanimentMenuScreen(
                     options = DataSource.accompanimentMenuItems,
                     onCancelButtonClicked = {
@@ -165,6 +181,7 @@ fun LunchTrayApp() {
             }
 
             composable(route = LunchTrayScreen.Checkout.name) {
+                // Checkout screen composable
                 CheckoutScreen(
                     orderUiState = uiState,
                     onCancelButtonClicked = {

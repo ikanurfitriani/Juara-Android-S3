@@ -1,7 +1,10 @@
+// Memberikan penanda bahwa eksperimental API dari Material 3 telah diaktifkan
 @file:OptIn(ExperimentalMaterial3Api::class)
 
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.marsphotos.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -21,20 +24,27 @@ import com.ikanurfitriani.marsphotos.R
 import com.ikanurfitriani.marsphotos.ui.screens.HomeScreen
 import com.ikanurfitriani.marsphotos.ui.screens.MarsViewModel
 
+// Fungsi composable utama dari aplikasi MarsPhotos
 @Composable
 fun MarsPhotosApp() {
+    // Mendeklarasikan perilaku gulir bawaan
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    // Untuk membuat tata letak aplikasi dari Jetpack Compose
     Scaffold(
+        // Untuk mengaktifkan perilaku gulir bersarang
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { MarsTopAppBar(scrollBehavior = scrollBehavior) }
     ) {
         Surface(
             modifier = Modifier
+                // Modifikasi penuh ukuran (full size)
                 .fillMaxSize()
                 .padding(it)
         ) {
+            // Mendeklarasikan dan menginisialisasi variabel marsViewModel dengan menggunakan fungsi viewModel()
             val marsViewModel: MarsViewModel =
                 viewModel(factory = MarsViewModel.Factory)
+            // Untuk menampilkan layar utama dari aplikasi MarsPhotos
             HomeScreen(
                 marsUiState = marsViewModel.marsUiState,
                 retryAction = marsViewModel::getMarsPhotos
@@ -43,13 +53,17 @@ fun MarsPhotosApp() {
     }
 }
 
+// Fungsi composable dari aplikasi MarsPhotos untuk menampilkan TopAppBar
 @Composable
 fun MarsTopAppBar(scrollBehavior: TopAppBarScrollBehavior, modifier: Modifier = Modifier) {
+    // Untuk mengatur judul aplikasi agar berada di tengah
     CenterAlignedTopAppBar(
         scrollBehavior = scrollBehavior,
         title = {
             Text(
+                // Untuk menampilkan teks dengan menggunakan sumber daya string
                 text = stringResource(R.string.app_name),
+                // Memberikan gaya tipografi headline small pada text
                 style = MaterialTheme.typography.headlineSmall,
             )
         },

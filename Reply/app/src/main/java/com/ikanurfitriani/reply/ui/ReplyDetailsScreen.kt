@@ -1,5 +1,7 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.reply.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
@@ -36,6 +38,7 @@ import com.ikanurfitriani.reply.R
 import com.ikanurfitriani.reply.data.Email
 import com.ikanurfitriani.reply.data.MailboxType
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 fun ReplyDetailsScreen(
     replyUiState: ReplyUiState,
@@ -43,10 +46,13 @@ fun ReplyDetailsScreen(
     modifier: Modifier = Modifier,
     isFullScreen: Boolean = false
 ) {
+    // Menggunakan BackHandler untuk menangani penekanan tombol kembali
     BackHandler {
         onBackPressed()
     }
+    // Menampilkan layar detail email menggunakan Box sebagai wadah
     Box(modifier = modifier) {
+        // Menggunakan LazyColumn untuk membuat daftar item yang memuat detail email
         LazyColumn(
             modifier = Modifier
                 .testTag(stringResource(R.string.details_screen))
@@ -55,6 +61,7 @@ fun ReplyDetailsScreen(
                 .padding(top = dimensionResource(R.dimen.detail_card_list_padding_top))
         ) {
             item {
+                // Jika layar penuh, menampilkan top bar dengan tombol kembali dan judul email
                 if (isFullScreen) {
                     ReplyDetailsScreenTopBar(
                         onBackPressed,
@@ -64,6 +71,7 @@ fun ReplyDetailsScreen(
                             .padding(bottom = dimensionResource(R.dimen.detail_topbar_padding_bottom))
                     )
                 }
+                // Menampilkan kartu detail email
                 ReplyEmailDetailsCard(
                     email = replyUiState.currentSelectedEmail,
                     mailboxType = replyUiState.currentMailbox,
@@ -79,16 +87,19 @@ fun ReplyDetailsScreen(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun ReplyDetailsScreenTopBar(
     onBackButtonClicked: () -> Unit,
     replyUiState: ReplyUiState,
     modifier: Modifier = Modifier
 ) {
+    // Menampilkan baris yang berisi tombol kembali dan judul email
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        // Tombol kembali dengan ikon panah ke belakang
         IconButton(
             onClick = onBackButtonClicked,
             modifier = Modifier
@@ -100,6 +111,7 @@ private fun ReplyDetailsScreenTopBar(
                 contentDescription = stringResource(id = R.string.navigation_back)
             )
         }
+        // Menampilkan judul email di bagian tengah bar
         Row(
             horizontalArrangement = Arrangement.Center,
             modifier = Modifier
@@ -115,6 +127,7 @@ private fun ReplyDetailsScreenTopBar(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun ReplyEmailDetailsCard(
     email: Email,
@@ -122,23 +135,29 @@ private fun ReplyEmailDetailsCard(
     modifier: Modifier = Modifier,
     isFullScreen: Boolean = false
 ) {
+    // Mendapatkan konteks lokal
     val context = LocalContext.current
+    // Fungsi untuk menampilkan pesan Toast
     val displayToast = { text: String ->
         Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
     }
+    // Kartu untuk menampilkan detail email
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
     ) {
+        // Kolom untuk menata elemen-elemen dalam kartu
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.detail_card_inner_padding))
         ) {
+            // Header kartu dengan informasi pengirim dan waktu
             DetailsScreenHeader(
                 email,
                 Modifier.fillMaxWidth()
             )
+            // Spacer jika layar penuh atau judul email jika tidak
             if (isFullScreen) {
                 Spacer(modifier = Modifier.height(dimensionResource(R.dimen.detail_content_padding_top)))
             } else {
@@ -152,23 +171,28 @@ private fun ReplyEmailDetailsCard(
                     ),
                 )
             }
+            // Isi email
             Text(
                 text = stringResource(email.body),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
+            // Tombol aksi tergantung pada jenis mailbox
             DetailsScreenButtonBar(mailboxType, displayToast)
         }
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun DetailsScreenButtonBar(
     mailboxType: MailboxType,
     displayToast: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Kotak sebagai wadah untuk tombol aksi
     Box(modifier = modifier) {
+        // Menampilkan tombol aksi sesuai dengan jenis mailbox
         when (mailboxType) {
             MailboxType.Drafts ->
                 ActionButton(
@@ -187,6 +211,7 @@ private fun DetailsScreenButtonBar(
                         dimensionResource(R.dimen.detail_button_bar_item_spacing)
                     ),
                 ) {
+                    // Tombol untuk memindahkan ke Inbox dan menghapus email
                     ActionButton(
                         text = stringResource(id = R.string.move_to_inbox),
                         onButtonClicked = displayToast,
@@ -211,6 +236,7 @@ private fun DetailsScreenButtonBar(
                         dimensionResource(R.dimen.detail_button_bar_item_spacing)
                     ),
                 ) {
+                    // Tombol untuk membalas email dan membalas ke semua penerima
                     ActionButton(
                         text = stringResource(id = R.string.reply),
                         onButtonClicked = displayToast,
@@ -226,8 +252,10 @@ private fun DetailsScreenButtonBar(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun DetailsScreenHeader(email: Email, modifier: Modifier = Modifier) {
+    // Baris yang berisi gambar profil pengirim dan informasi nama pengirim dan waktu pengiriman
     Row(modifier = modifier) {
         ReplyProfileImage(
             drawableResource = email.sender.avatar,
@@ -237,6 +265,7 @@ private fun DetailsScreenHeader(email: Email, modifier: Modifier = Modifier) {
                 dimensionResource(R.dimen.email_header_profile_size)
             )
         )
+        // Kolom yang berisi nama pengirim dan waktu pengiriman
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -246,10 +275,12 @@ private fun DetailsScreenHeader(email: Email, modifier: Modifier = Modifier) {
                 ),
             verticalArrangement = Arrangement.Center
         ) {
+            // Nama pengirim
             Text(
                 text = stringResource(email.sender.firstName),
                 style = MaterialTheme.typography.labelMedium
             )
+            // Waktu pengiriman
             Text(
                 text = stringResource(email.createdAt),
                 style = MaterialTheme.typography.labelMedium,
@@ -259,6 +290,7 @@ private fun DetailsScreenHeader(email: Email, modifier: Modifier = Modifier) {
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun ActionButton(
     text: String,
@@ -266,7 +298,9 @@ private fun ActionButton(
     modifier: Modifier = Modifier,
     containIrreversibleAction: Boolean = false,
 ) {
+    // Kotak sebagai wadah untuk tombol aksi
     Box(modifier = modifier) {
+        // Tombol aksi dengan teks sesuai parameter
         Button(
             onClick = { onButtonClicked(text) },
             modifier = Modifier
@@ -281,6 +315,7 @@ private fun ActionButton(
                 }
             )
         ) {
+            // Teks tombol aksi dengan warna sesuai kondisi
             Text(
                 text = text,
                 color = if (containIrreversibleAction) {

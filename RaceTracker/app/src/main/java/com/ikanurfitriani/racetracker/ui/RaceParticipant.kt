@@ -1,12 +1,14 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.racetracker.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import kotlinx.coroutines.delay
 
 /**
- * This class represents a state holder for race participant.
+ * Kelas ini merepresentasikan pemegang status peserta balapan.
  */
 class RaceParticipant(
     val name: String,
@@ -15,20 +17,21 @@ class RaceParticipant(
     private val progressIncrement: Int = 1,
     private val initialProgress: Int = 0
 ) {
+    // Blok inisialisasi untuk memeriksa persyaratan awal pada propertinya
     init {
         require(maxProgress > 0) { "maxProgress=$maxProgress; must be > 0" }
         require(progressIncrement > 0) { "progressIncrement=$progressIncrement; must be > 0" }
     }
 
     /**
-     * Indicates the race participant's current progress
+     * Menunjukkan kemajuan saat ini dari peserta balapan
      */
     var currentProgress by mutableStateOf(initialProgress)
         private set
 
     /**
-     * Updates the value of [currentProgress] by value [progressIncrement] until it reaches
-     * [maxProgress]. There is a delay of [progressDelayMillis] between each update.
+     * Memperbarui nilai dari [currentProgress] dengan nilai [progressIncrement] sampai mencapai
+     * [maxProgress]. Ada penundaan sebesar [progressDelayMillis] antara setiap pembaruan.
      */
     suspend fun run() {
         while (currentProgress < maxProgress) {
@@ -38,8 +41,8 @@ class RaceParticipant(
     }
 
     /**
-     * Regardless of the value of [initialProgress] the reset function will reset the
-     * [currentProgress] to 0
+     * Terlepas dari nilai [initialProgress], fungsi reset akan mengatur ulang
+     * [currentProgress] menjadi 0.
      */
     fun reset() {
         currentProgress = 0
@@ -47,8 +50,8 @@ class RaceParticipant(
 }
 
 /**
- * The Linear progress indicator expects progress value in the range of 0-1. This property
- * calculate the progress factor to satisfy the indicator requirements.
+ * Indikator kemajuan linear mengharapkan nilai kemajuan dalam kisaran 0-1. Properti ini
+ * menghitung faktor kemajuan untuk memenuhi persyaratan indikator.
  */
 val RaceParticipant.progressFactor: Float
     get() = currentProgress / maxProgress.toFloat()

@@ -1,27 +1,29 @@
+// Nama package dari data yang dibuat dalam aplikasi
 package com.ikanurfitriani.reply.data
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.annotation.StringRes
 
 /**
- * A simple data class to represent an Email
+ * Kelas data sederhana untuk merepresentasikan sebuah Email.
  */
 data class Email(
-    /** Unique ID of the email **/
+    /** ID unik dari email **/
     val id: Long,
-    /** Sender of the email **/
+    /** Pengirim email **/
     val sender: Account,
-    /** Recipient(s) of the email **/
+    /** Penerima email **/
     val recipients: List<Account> = emptyList(),
-    /** Title of the email **/
+    /** Judul email **/
     @StringRes val subject: Int = -1,
-    /** Content of the email **/
+    /** Isi konten email **/
     @StringRes val body: Int = -1,
-    /** Which mailbox it is in **/
+    /** Kotak surat tempat email disimpan **/
     var mailbox: MailboxType = MailboxType.Inbox,
     /**
-     * Relative duration in which it was created. (e.g. 20 mins ago)
-     * It should be calculated from relative time in the future.
-     * For now it's hard coded to a [String] value.
+     * Durasi relatif sejak email dibuat. (contoh: 20 menit yang lalu)
+     * Harus dihitung dari waktu relatif di masa depan.
+     * Untuk saat ini, nilainya dihardcode menjadi nilai [String].
      */
     var createdAt: Int = -1
 )

@@ -1,5 +1,7 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.reply.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import android.app.Activity
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -33,14 +35,17 @@ import com.ikanurfitriani.reply.R
 import com.ikanurfitriani.reply.data.Email
 import com.ikanurfitriani.reply.data.local.LocalAccountsDataProvider
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 fun ReplyListOnlyContent(
     replyUiState: ReplyUiState,
     onEmailCardPressed: (Email) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Mendapatkan daftar email dari state UI
     val emails = replyUiState.currentMailboxEmails
 
+    // Menggunakan LazyColumn untuk menampilkan daftar email
     LazyColumn(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(
@@ -54,6 +59,7 @@ fun ReplyListOnlyContent(
                     .padding(vertical = dimensionResource(R.dimen.topbar_padding_vertical))
             )
         }
+        // Menampilkan setiap item email dalam bentuk ReplyEmailListItem
         items(emails, key = { email -> email.id }) { email ->
             ReplyEmailListItem(
                 email = email,
@@ -66,14 +72,18 @@ fun ReplyListOnlyContent(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 fun ReplyListAndDetailContent(
     replyUiState: ReplyUiState,
     onEmailCardPressed: (Email) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Mendapatkan daftar email dari state UI
     val emails = replyUiState.currentMailboxEmails
+    // Menggunakan Row sebagai wadah untuk menampilkan layar list dan detail
     Row(modifier = modifier) {
+        // Menampilkan daftar email menggunakan LazyColumn
         LazyColumn(
             modifier = Modifier
                 .weight(1f)
@@ -85,6 +95,7 @@ fun ReplyListAndDetailContent(
                 dimensionResource(R.dimen.email_list_item_vertical_spacing)
             )
         ) {
+            // Menampilkan setiap item email dalam bentuk ReplyEmailListItem
             items(emails, key = { email -> email.id }) { email ->
                 ReplyEmailListItem(
                     email = email,
@@ -95,6 +106,7 @@ fun ReplyListAndDetailContent(
                 )
             }
         }
+        // Menampilkan layar detail email sebelah kanan
         val activity = LocalContext.current as Activity
         ReplyDetailsScreen(
             replyUiState = replyUiState,
@@ -104,7 +116,9 @@ fun ReplyListAndDetailContent(
     }
 }
 
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 fun ReplyEmailListItem(
     email: Email,
@@ -112,6 +126,7 @@ fun ReplyEmailListItem(
     onCardClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Kartu sebagai wadah untuk item email
     Card(
         modifier = modifier,
         colors = CardDefaults.cardColors(
@@ -123,15 +138,18 @@ fun ReplyEmailListItem(
         ),
         onClick = onCardClick
     ) {
+        // Kolom sebagai wadah untuk elemen-elemen dalam item email
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.email_list_item_inner_padding))
         ) {
+            // Bagian header item email yang berisi informasi pengirim dan waktu pengiriman
             ReplyEmailItemHeader(
                 email,
                 Modifier.fillMaxWidth()
             )
+            // Judul email
             Text(
                 text = stringResource(email.subject),
                 style = MaterialTheme.typography.bodyLarge,
@@ -141,6 +159,7 @@ fun ReplyEmailListItem(
                     bottom = dimensionResource(R.dimen.email_list_item_subject_body_spacing)
                 ),
             )
+            // Isi email dengan maksimal 2 baris dan ellipsis jika terlalu panjang
             Text(
                 text = stringResource(email.body),
                 style = MaterialTheme.typography.bodyMedium,
@@ -152,15 +171,19 @@ fun ReplyEmailListItem(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun ReplyEmailItemHeader(email: Email, modifier: Modifier = Modifier) {
+    // Baris sebagai wadah untuk informasi pengirim dan waktu pengiriman
     Row(modifier = modifier) {
+        // Gambar profil pengirim
         ReplyProfileImage(
             drawableResource = email.sender.avatar,
             description = stringResource(email.sender.firstName) + " "
                     + stringResource(email.sender.lastName),
             modifier = Modifier.size(dimensionResource(R.dimen.email_header_profile_size))
         )
+        // Kolom sebagai wadah untuk nama pengirim dan waktu pengiriman
         Column(
             modifier = Modifier
                 .weight(1f)
@@ -170,10 +193,12 @@ private fun ReplyEmailItemHeader(email: Email, modifier: Modifier = Modifier) {
                 ),
             verticalArrangement = Arrangement.Center
         ) {
+            // Nama pengirim
             Text(
                 text = stringResource(email.sender.firstName),
                 style = MaterialTheme.typography.labelMedium
             )
+            // Waktu pengiriman
             Text(
                 text = stringResource(email.createdAt),
                 style = MaterialTheme.typography.labelMedium,
@@ -183,13 +208,16 @@ private fun ReplyEmailItemHeader(email: Email, modifier: Modifier = Modifier) {
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 fun ReplyProfileImage(
     @DrawableRes drawableResource: Int,
     description: String,
     modifier: Modifier = Modifier,
 ) {
+    // Kotak sebagai wadah untuk gambar profil
     Box(modifier = modifier) {
+        // Menampilkan gambar profil dengan bentuk lingkaran
         Image(
             modifier = Modifier.clip(CircleShape),
             painter = painterResource(drawableResource),
@@ -198,11 +226,13 @@ fun ReplyProfileImage(
     }
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 fun ReplyLogo(
     modifier: Modifier = Modifier,
     color: Color = MaterialTheme.colorScheme.primary
 ) {
+    // Menampilkan gambar logo Reply
     Image(
         painter = painterResource(R.drawable.logo),
         contentDescription = stringResource(R.string.logo),
@@ -211,18 +241,22 @@ fun ReplyLogo(
     )
 }
 
+// Mendefinisikan fungsi komposabel bernama ReplyDetailsScreen
 @Composable
 private fun ReplyHomeTopBar(modifier: Modifier = Modifier) {
+    // Baris sebagai wadah untuk elemen-elemen pada top bar layar utama
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
+        // Menampilkan logo Reply
         ReplyLogo(
             modifier = Modifier
                 .size(dimensionResource(R.dimen.topbar_logo_size))
                 .padding(start = dimensionResource(R.dimen.topbar_logo_padding_start))
         )
+        // Menampilkan gambar profil pengguna
         ReplyProfileImage(
             drawableResource = LocalAccountsDataProvider.defaultAccount.avatar,
             description = stringResource(R.string.profile),

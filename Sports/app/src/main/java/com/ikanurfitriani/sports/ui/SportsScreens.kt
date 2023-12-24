@@ -1,5 +1,7 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.sports.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -60,14 +62,21 @@ import com.ikanurfitriani.sports.utils.SportsContentType
 
 // Composable utama yang berfungsi sebagai container
 // yang menampilkan konten menurut [uiState] dan [windowSize]
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
+/**
+ * Fungsi ini merupakan komponen utama aplikasi olahraga. Menerima parameter windowSize dan onBackPressed.
+ * Bergantung pada ukuran jendela, menentukan jenis tata letak dan menampilkan konten olahraga.
+ */
 @Composable
 fun SportsApp(
     windowSize: WindowWidthSizeClass,
     onBackPressed: () -> Unit,
 ) {
+    // Mendapatkan instance ViewModel untuk mengakses data dan status aplikasi olahraga
     val viewModel: SportsViewModel = viewModel()
     val uiState by viewModel.uiState.collectAsState()
+    // Menentukan jenis konten berdasarkan ukuran jendela
     val contentType = when (windowSize) {
         WindowWidthSizeClass.Compact,
         WindowWidthSizeClass.Medium -> SportsContentType.ListOnly
@@ -76,6 +85,7 @@ fun SportsApp(
         else -> SportsContentType.ListOnly
     }
 
+    // Membangun tata letak aplikasi dengan menggunakan Scaffold dan kontennya
     Scaffold(
         topBar = {
             SportsAppBar(
@@ -85,6 +95,7 @@ fun SportsApp(
             )
         }
     ) { innerPadding ->
+        // Menampilkan konten sesuai dengan jenis kontennya
         if (contentType == SportsContentType.ListAndDetail) {
             SportsListAndDetail(
                 sports = uiState.sportsList,
@@ -123,7 +134,11 @@ fun SportsApp(
 /**
  * Composable that displays the topBar and displays back button if back navigation is possible.
  */
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
+/**
+ * Komponen ini menampilkan app bar olahraga dengan judul dan tombol kembali jika diperlukan.
+ */
 @Composable
 fun SportsAppBar(
     onBackButtonClick: () -> Unit,
@@ -131,7 +146,9 @@ fun SportsAppBar(
     windowSize: WindowWidthSizeClass,
     modifier: Modifier = Modifier
 ) {
+    // Menentukan apakah halaman detail sedang ditampilkan berdasarkan ukuran jendela
     val isShowingDetailPage = windowSize != WindowWidthSizeClass.Expanded && !isShowingListPage
+    // Membangun app bar menggunakan TopAppBar dengan judul dinamis dan tombol kembali jika diperlukan
     TopAppBar(
         title = {
             Text(
@@ -163,13 +180,18 @@ fun SportsAppBar(
     )
 }
 
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
+/**
+ * Komponen ini menampilkan item daftar olahraga sebagai kartu dengan judul, deskripsi, dan detail olahraga.
+ */
 @Composable
 private fun SportsListItem(
     sport: Sport,
     onItemClick: (Sport) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Kartu yang berisi informasi tentang olahraga, dapat diklik untuk menavigasi ke detail
     Card(
         elevation = CardDefaults.cardElevation(),
         modifier = modifier,
@@ -181,10 +203,12 @@ private fun SportsListItem(
                 .fillMaxWidth()
                 .size(dimensionResource(R.dimen.card_image_height))
         ) {
+            // Gambar olahraga
             SportsListImageItem(
                 sport = sport,
                 modifier = Modifier.size(dimensionResource(R.dimen.card_image_height))
             )
+            // Informasi teks olahraga
             Column(
                 modifier = Modifier
                     .padding(
@@ -206,6 +230,7 @@ private fun SportsListItem(
                     maxLines = 3
                 )
                 Spacer(Modifier.weight(1f))
+                // Informasi tambahan seperti jumlah pemain dan status Olimpiade
                 Row {
                     Text(
                         text = pluralStringResource(
@@ -228,6 +253,9 @@ private fun SportsListItem(
     }
 }
 
+/**
+ * Komponen ini menampilkan gambar olahraga dalam bentuk persegi panjang.
+ */
 @Composable
 private fun SportsListImageItem(sport: Sport, modifier: Modifier = Modifier) {
     Box(
@@ -242,6 +270,9 @@ private fun SportsListImageItem(sport: Sport, modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Komponen ini menampilkan daftar olahraga dalam bentuk daftar gulir.
+ */
 @Composable
 private fun SportsList(
     sports: List<Sport>,
@@ -249,6 +280,7 @@ private fun SportsList(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
+    // Daftar gulir yang menampilkan daftar olahraga dalam bentuk item-item daftar
     LazyColumn(
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(R.dimen.padding_medium)),
@@ -263,6 +295,9 @@ private fun SportsList(
     }
 }
 
+/**
+ * Komponen ini menampilkan detail olahraga, termasuk gambar banner dan teks deskripsi.
+ */
 @Composable
 private fun SportsDetail(
     selectedSport: Sport,
@@ -270,16 +305,19 @@ private fun SportsDetail(
     contentPadding: PaddingValues,
     modifier: Modifier = Modifier
 ) {
+    // Menangani tombol kembali dengan menggunakan BackHandler
     BackHandler {
         onBackPressed()
     }
     val scrollState = rememberScrollState()
     val layoutDirection = LocalLayoutDirection.current
+    // Tampilan utama untuk detail olahraga
     Box(
         modifier = modifier
             .verticalScroll(state = scrollState)
             .padding(top = contentPadding.calculateTopPadding())
     ) {
+        // Kolom informasi olahraga
         Column(
             modifier = Modifier
                 .padding(
@@ -288,6 +326,7 @@ private fun SportsDetail(
                     end = contentPadding.calculateEndPadding(layoutDirection)
                 )
         ) {
+            // Gambar banner olahraga dan overlay teks
             Box {
                 Box {
                     Image(
@@ -297,6 +336,7 @@ private fun SportsDetail(
                         contentScale = ContentScale.FillWidth,
                     )
                 }
+                // Overlay teks di bagian bawah gambar banner
                 Column(
                     Modifier
                         .align(Alignment.BottomStart)
@@ -337,6 +377,7 @@ private fun SportsDetail(
                     }
                 }
             }
+            // Teks deskripsi olahraga
             Text(
                 text = stringResource(selectedSport.sportDetails),
                 style = MaterialTheme.typography.bodyMedium,
@@ -349,6 +390,9 @@ private fun SportsDetail(
     }
 }
 
+/**
+ * Komponen ini menampilkan daftar olahraga dan detail olahraga secara bersamaan.
+ */
 @Composable
 private fun SportsListAndDetail(
     sports: List<Sport>,
@@ -358,9 +402,11 @@ private fun SportsListAndDetail(
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp),
 ) {
+    // Baris yang berisi daftar olahraga dan detail olahraga
     Row(
         modifier = modifier
     ) {
+        // Komponen daftar olahraga
         SportsList(
             sports = sports,
             onClick = onClick,
@@ -369,6 +415,7 @@ private fun SportsListAndDetail(
                 .weight(2f)
                 .padding(horizontal = dimensionResource(R.dimen.padding_medium))
         )
+        // Komponen detail olahraga
         SportsDetail(
             selectedSport = selectedSport,
             modifier = Modifier.weight(3f),
@@ -378,6 +425,9 @@ private fun SportsListAndDetail(
     }
 }
 
+/**
+ * Preview untuk komponen SportsListItem.
+ */
 @Preview
 @Composable
 fun SportsListItemPreview() {
@@ -389,6 +439,9 @@ fun SportsListItemPreview() {
     }
 }
 
+/**
+ * Preview untuk komponen SportsList.
+ */
 @Preview
 @Composable
 fun SportsListPreview() {
@@ -402,6 +455,9 @@ fun SportsListPreview() {
     }
 }
 
+/**
+ * Preview untuk komponen SportsListAndDetail pada perangkat tablet.
+ */
 @Preview(device = Devices.TABLET)
 @Composable
 fun SportsListAndDetailsPreview() {

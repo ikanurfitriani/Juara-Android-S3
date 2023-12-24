@@ -1,5 +1,7 @@
+// Nama package dari screens yang dibuat dalam aplikasi
 package com.ikanurfitriani.amphibians.ui.screens
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,6 +35,7 @@ import com.ikanurfitriani.amphibians.R
 import com.ikanurfitriani.amphibians.model.Amphibian
 import com.ikanurfitriani.amphibians.ui.theme.AmphibiansTheme
 
+// Mendefinisikan fungsi komposabel bernama HomeScreen
 @Composable
 fun HomeScreen(
     amphibiansUiState: AmphibiansUiState,
@@ -41,7 +44,9 @@ fun HomeScreen(
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     when (amphibiansUiState) {
+        // Jika masih loading maka akan menampilkan LoadingScreen dengan modifikasi 200dp
         is AmphibiansUiState.Loading -> LoadingScreen(modifier.size(200.dp))
+        // Jika berhasil maka akan menampilkan AmphibiansListScreen
         is AmphibiansUiState.Success ->
             AmphibiansListScreen(
                 amphibians = amphibiansUiState.amphibians,
@@ -53,46 +58,57 @@ fun HomeScreen(
                     ),
                 contentPadding = contentPadding
             )
+        // Jika gagal maka akan menampilkan ErrorScreen
         else -> ErrorScreen(retryAction, modifier)
     }
 }
 
-/**
- * The home screen displaying the loading message.
- */
+// Fungsi composable yang menampilkan LoadingScreen atau layar loading
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Image(
+        // Menampilkan gambar loading dengan menggunakan resource drawable loading_img
         painter = painterResource(R.drawable.loading_img),
+        // Untuk menampilkan deskripsi dengan menggunakan sumber daya string
         contentDescription = stringResource(R.string.loading),
+        // Menyesuaikan tata letak kolom, termasuk ukuran dan penataan
         modifier = modifier
     )
 }
 
-/**
- * The home screen displaying error message with re-attempt button.
- */
+// Fungsi composable yang menampilkan ErrorScreen atau layar gagal memuat data
 @Composable
 fun ErrorScreen(retryAction: () -> Unit, modifier: Modifier = Modifier) {
+    // Menyusun komponen secara vertikal
     Column(
+        // Menyesuaikan tata letak kolom, termasuk ukuran dan penataan
         modifier = modifier,
+        // Menyusun elemen secara vertikal dan menempatkannya di tengah vertikal kolom
         verticalArrangement = Arrangement.Center,
+        // Menyusun elemen secara horizontal dan menempatkannya di tengah horizontal kolom
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        // Menampilkan pesan error dengan string resource dari resource string
         Text(stringResource(R.string.loading_failed))
+        // Menambahkan button retry
         Button(onClick = retryAction) {
             Text(stringResource(R.string.retry))
         }
     }
 }
 
+// Komposabel yang menampilkan kartu untuk setiap Amphibian, menggunakan Card dan AsyncImage
 @Composable
 fun AmphibianCard(amphibian: Amphibian, modifier: Modifier = Modifier) {
+    // Membuat komponen kartu dari komposisi Material Design
     Card(
+        // Menerapkan modifikasi pada kartu
         modifier = modifier,
         shape = RoundedCornerShape(8.dp)
     ) {
+        // Komponen kolom yang mengatur elemen-elemen anak secara vertikal dan memusatkan mereka secara horizonta
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
+            // Menampilkan teks dengan judul amfibi yang memanfaatkan sumber daya string dan mengatur penataan teks
             Text(
                 text = stringResource(R.string.amphibian_title, amphibian.name, amphibian.type),
                 modifier = Modifier
@@ -102,6 +118,7 @@ fun AmphibianCard(amphibian: Amphibian, modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Start
             )
+            // Menampilkan gambar amfibi secara asinkron menggunakan komponen gambar asinkron
             AsyncImage(
                 modifier = Modifier.fillMaxWidth(),
                 model = ImageRequest.Builder(context = LocalContext.current)
@@ -113,6 +130,7 @@ fun AmphibianCard(amphibian: Amphibian, modifier: Modifier = Modifier) {
                 error = painterResource(id = R.drawable.ic_broken_image),
                 placeholder = painterResource(id = R.drawable.loading_img)
             )
+            // Menampilkan deskripsi amfibi dengan penataan teks yang diatur
             Text(
                 text = amphibian.description,
                 style = MaterialTheme.typography.titleMedium,
@@ -123,28 +141,35 @@ fun AmphibianCard(amphibian: Amphibian, modifier: Modifier = Modifier) {
     }
 }
 
+// Fungsi komposabel yang menampilkan daftar amfibi dalam bentuk daftar bergulir
 @Composable
 private fun AmphibiansListScreen(
     amphibians: List<Amphibian>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
+    // Komponen kolom bergulir yang memuat daftar amfibi secara lazim (hanya elemen yang terlihat yang dimuat)
     LazyColumn(
         modifier = modifier,
         contentPadding = contentPadding,
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
+        // Menampilkan setiap amfibi dalam daftar menggunakan AmphibianCard
         items(
+            // Menentukan daftar amfibi yang akan ditampilkan
             items = amphibians,
+            // Memberikan kunci unik untuk setiap elemen dalam daftar
             key = { amphibian ->
                 amphibian.name
             }
         ) { amphibian ->
+            // Menampilkan AmphibianCard untuk setiap amfibi dalam daftar dengan menggunakan modifikasi ukuran maksimum
             AmphibianCard(amphibian = amphibian, modifier = Modifier.fillMaxSize())
         }
     }
 }
 
+// Fungsi composable yang menampilkan LoadingScreen
 @Preview(showBackground = true)
 @Composable
 fun LoadingScreenPreview() {
@@ -157,6 +182,7 @@ fun LoadingScreenPreview() {
     }
 }
 
+// Fungsi composable yang menampilkan ErrorScreen
 @Preview(showBackground = true)
 @Composable
 fun ErrorScreenPreview() {
@@ -165,6 +191,7 @@ fun ErrorScreenPreview() {
     }
 }
 
+// Fungsi composable yang menampilkan AmphibiansListScreen
 @Preview(showBackground = true)
 @Composable
 fun AmphibiansListScreenPreview() {

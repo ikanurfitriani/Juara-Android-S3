@@ -1,5 +1,7 @@
+// Nama package dari model yang dibuat dalam aplikasi
 package com.ikanurfitriani.lunchtray.model
 
+// Mendeklarasikan data class dengan nama OrderUiState
 data class OrderUiState(
     // Entree Selection
     val entree: MenuItem.EntreeItem? = null,

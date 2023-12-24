@@ -1,8 +1,12 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.sports.utils
 
 /**
- * Content shown depending on size and state of device.
+ * Konten yang ditampilkan tergantung pada ukuran dan status perangkat.
  */
 enum class SportsContentType {
-    ListOnly, ListAndDetail
+    // Enum untuk menunjukkan tipe konten yang hanya menampilkan daftar olahraga
+    ListOnly,
+    // Enum untuk menunjukkan tipe konten yang menampilkan daftar olahraga dan detail olahraga
+    ListAndDetail
 }

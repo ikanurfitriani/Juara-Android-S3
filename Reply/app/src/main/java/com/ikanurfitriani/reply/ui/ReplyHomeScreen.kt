@@ -1,5 +1,7 @@
+// Nama package dari ui yang dibuat dalam aplikasi
 package com.ikanurfitriani.reply.ui
 
+// Import library, kelas atau file yang dibutuhkan
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -45,7 +47,9 @@ import com.ikanurfitriani.reply.data.local.LocalAccountsDataProvider
 import com.ikanurfitriani.reply.ui.utils.ReplyContentType
 import com.ikanurfitriani.reply.ui.utils.ReplyNavigationType
 
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
+// Fungsi komposabel utama untuk layar utama Reply
 @Composable
 fun ReplyHomeScreen(
     navigationType: ReplyNavigationType,
@@ -56,6 +60,7 @@ fun ReplyHomeScreen(
     onDetailScreenBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // Daftar konten untuk item navigasi drawer
     val navigationItemContentList = listOf(
         NavigationItemContent(
             mailboxType = MailboxType.Inbox,
@@ -78,7 +83,9 @@ fun ReplyHomeScreen(
             text = stringResource(id = R.string.tab_spam)
         )
     )
+    // Memeriksa tipe navigasi
     if (navigationType == ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER) {
+        // Menampilkan layar utama dengan drawer navigasi permanen
         val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
         PermanentNavigationDrawer(
             drawerContent = {
@@ -97,6 +104,7 @@ fun ReplyHomeScreen(
             },
             modifier = Modifier.testTag(navigationDrawerContentDescription)
         ) {
+            // Menampilkan konten aplikasi Reply
             ReplyAppContent(
                 navigationType = navigationType,
                 contentType = contentType,
@@ -108,6 +116,7 @@ fun ReplyHomeScreen(
             )
         }
     } else {
+        // Menampilkan layar utama atau layar detail, tergantung pada kondisi
         if (replyUiState.isShowingHomepage) {
             ReplyAppContent(
                 navigationType = navigationType,
@@ -129,6 +138,7 @@ fun ReplyHomeScreen(
     }
 }
 
+// Fungsi komposabel untuk menampilkan konten aplikasi Reply
 @Composable
 private fun ReplyAppContent(
     navigationType: ReplyNavigationType,
@@ -139,8 +149,11 @@ private fun ReplyAppContent(
     navigationItemContentList: List<NavigationItemContent>,
     modifier: Modifier = Modifier,
 ) {
+    // Kotak sebagai wadah utama untuk elemen-elemen layar utama
     Box(modifier = modifier) {
+        // Baris sebagai wadah utama untuk elemen-elemen layar utama
         Row(modifier = Modifier.fillMaxSize()) {
+            // Menampilkan navigation rail jika tipe navigasi adalah NAVIGATION_RAIL
             AnimatedVisibility(visible = navigationType == ReplyNavigationType.NAVIGATION_RAIL) {
                 val navigationRailContentDescription = stringResource(R.string.navigation_rail)
                 ReplyNavigationRail(
@@ -151,11 +164,13 @@ private fun ReplyAppContent(
                         .testTag(navigationRailContentDescription)
                 )
             }
+            // Kolom sebagai wadah utama untuk elemen-elemen layar utama
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(MaterialTheme.colorScheme.inverseOnSurface)
             ) {
+                // Menampilkan konten list dan detail jika contentType adalah LIST_AND_DETAIL
                 if (contentType == ReplyContentType.LIST_AND_DETAIL) {
                     ReplyListAndDetailContent(
                         replyUiState = replyUiState,
@@ -163,6 +178,7 @@ private fun ReplyAppContent(
                         modifier = Modifier.weight(1f),
                     )
                 } else {
+                    // Menampilkan konten list-only jika contentType adalah LIST_ONLY
                     ReplyListOnlyContent(
                         replyUiState = replyUiState,
                         onEmailCardPressed = onEmailCardPressed,
@@ -172,6 +188,7 @@ private fun ReplyAppContent(
                             )
                     )
                 }
+                // Menampilkan bottom navigation jika tipe navigasi adalah BOTTOM_NAVIGATION
                 AnimatedVisibility(
                     visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION
                 ) {
@@ -190,6 +207,7 @@ private fun ReplyAppContent(
     }
 }
 
+// Fungsi komposabel untuk menampilkan navigation rail pada layar utama
 @Composable
 private fun ReplyNavigationRail(
     currentTab: MailboxType,
@@ -197,7 +215,9 @@ private fun ReplyNavigationRail(
     navigationItemContentList: List<NavigationItemContent>,
     modifier: Modifier = Modifier
 ) {
+    // Komponen NavigationRail sebagai wadah item navigasi
     NavigationRail(modifier = modifier) {
+        // Menampilkan setiap item navigasi dalam NavigationRail
         for (navItem in navigationItemContentList) {
             NavigationRailItem(
                 selected = currentTab == navItem.mailboxType,
@@ -213,6 +233,7 @@ private fun ReplyNavigationRail(
     }
 }
 
+// Fungsi komposabel untuk menampilkan bottom navigation pada layar utama
 @Composable
 private fun ReplyBottomNavigationBar(
     currentTab: MailboxType,
@@ -220,7 +241,9 @@ private fun ReplyBottomNavigationBar(
     navigationItemContentList: List<NavigationItemContent>,
     modifier: Modifier = Modifier
 ) {
+    // Komponen NavigationBar sebagai wadah item navigasi
     NavigationBar(modifier = modifier) {
+        // Menampilkan setiap item navigasi dalam NavigationBar
         for (navItem in navigationItemContentList) {
             NavigationBarItem(
                 selected = currentTab == navItem.mailboxType,
@@ -236,7 +259,9 @@ private fun ReplyBottomNavigationBar(
     }
 }
 
+// Anotasi yang menunjukkan penggunaan fitur eksperimental dari Material 3
 @OptIn(ExperimentalMaterial3Api::class)
+// Fungsi komposabel untuk menampilkan konten drawer navigasi pada layar utama
 @Composable
 private fun NavigationDrawerContent(
     selectedDestination: MailboxType,
@@ -244,12 +269,15 @@ private fun NavigationDrawerContent(
     navigationItemContentList: List<NavigationItemContent>,
     modifier: Modifier = Modifier
 ) {
+    // Kolom sebagai wadah utama untuk elemen-elemen drawer navigasi
     Column(modifier = modifier) {
+        // Header drawer navigasi
         NavigationDrawerHeader(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(dimensionResource(R.dimen.profile_image_padding)),
         )
+        // Menampilkan setiap item navigasi dalam drawer
         for (navItem in navigationItemContentList) {
             NavigationDrawerItem(
                 selected = selectedDestination == navItem.mailboxType,
@@ -274,16 +302,20 @@ private fun NavigationDrawerContent(
     }
 }
 
+// Fungsi komposabel untuk menampilkan header drawer navigasi pada layar utama
 @Composable
 private fun NavigationDrawerHeader(
     modifier: Modifier = Modifier
 ) {
+    // Baris sebagai wadah untuk elemen-elemen header drawer navigasi
     Row(
         modifier = modifier,
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
+        // Menampilkan logo Reply
         ReplyLogo(modifier = Modifier.size(dimensionResource(R.dimen.reply_logo_size)))
+        // Menampilkan gambar profil pengguna
         ReplyProfileImage(
             drawableResource = LocalAccountsDataProvider.defaultAccount.avatar,
             description = stringResource(id = R.string.profile),
@@ -293,6 +325,7 @@ private fun NavigationDrawerHeader(
     }
 }
 
+// Data class untuk menyimpan informasi konten item navigasi
 private data class NavigationItemContent(
     val mailboxType: MailboxType,
     val icon: ImageVector,
