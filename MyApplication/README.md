@@ -7,8 +7,7 @@ Hai, perkenalkan saya Ika Nurfitriani! Repositori ini merupakan hasil latihan pr
 # Screenshot Aplikasi
 Berikut ini adalah hasil screenshot dari aplikasi My Application:
 
-<img src="Screenshots/SS-1.png" alt="SS1" width="300">
-<img src="Screenshots/SS-2.png" alt="SS2" width="300">
+<img src="Screenshots/SS-1.png" alt="SS1" width="300"> <img src="Screenshots/SS-2.png" alt="SS2" width="300">
 
 ## Author
 [@Ika Nurfitriani](https://github.com/ikanurfitriani)

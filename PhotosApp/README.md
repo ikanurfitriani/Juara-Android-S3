@@ -9,9 +9,7 @@ Hai, perkenalkan saya Ika Nurfitriani! Repositori ini merupakan hasil latihan pr
 # Screenshot Aplikasi
 Berikut ini adalah hasil screenshot dari aplikasi Photos App:
 
-<img src="Screenshots/Page1.png" alt="P1" width="300"> 
-<img src="Screenshots/Page2.png" alt="P2" width="300"> 
-<img src="Screenshots/Page3.png" alt="P3" width="300"> 
+<img src="Screenshots/Page1.png" alt="P1" width="300"> <img src="Screenshots/Page2.png" alt="P2" width="300"> <img src="Screenshots/Page3.png" alt="P3" width="300"> 
 
 ## Author
 [@Ika Nurfitriani](https://github.com/ikanurfitriani)

@@ -10,11 +10,7 @@ Hai, perkenalkan saya Ika Nurfitriani! Repositori ini merupakan hasil latihan pr
 # Screenshot Aplikasi
 Berikut ini adalah hasil screenshot dari aplikasi Seblak:
 
-<img src="Screenshots/Page-1.png" alt="P1" width="300"> 
-<img src="Screenshots/Page-2.png" alt="P2" width="300"> 
-<img src="Screenshots/Page-3.png" alt="P3" width="300"> 
-<img src="Screenshots/Page-4.png" alt="P4" width="300"> 
-<img src="Screenshots/Page-5.png" alt="P5" width="300"> 
+<img src="Screenshots/Page-1.png" alt="P1" width="300"> <img src="Screenshots/Page-2.png" alt="P2" width="300"> <img src="Screenshots/Page-3.png" alt="P3" width="300"> <img src="Screenshots/Page-4.png" alt="P4" width="300"> <img src="Screenshots/Page-5.png" alt="P5" width="300"> 
 
 ## Author
 [@Ika Nurfitriani](https://github.com/ikanurfitriani)
