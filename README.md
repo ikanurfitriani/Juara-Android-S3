@@ -11,6 +11,3 @@ Repositori ini berisi kumpulan project aplikasi ketika mengikuti program Juara A
 - `Photos` atau [Photos](https://github.com/ikanurfitriani/Juara-Android-S3-Ika_Nurfitriani/tree/master/PhotosApp) : Direktori yang berisi hasil projek kelas pada Pertemuan 12.
 - `MyApplication` atau [MyApplication](https://github.com/ikanurfitriani/Juara-Android-S3-Ika_Nurfitriani/tree/master/MyApplication) : Direktori yang berisi hasil revisi dari projek `First Application`.
 - Direktori lainnya : Direktori yang berisi project latihan dari codelab yang diberikan penjelasan program melalui komentar.
-
-## Author
-[@Ika Nurfitriani](https://github.com/ikanurfitriani)
